@@ -1,0 +1,93 @@
+import sys
+import random
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QDialog, QComboBox, QSpinBox
+)
+from PyQt5.QtCore import QTimer, Qt
+
+# ---------------- Dashboard Window ----------------
+class Dashboard(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Study Popup Dashboard")
+        self.setGeometry(200, 200, 400, 250)
+
+        layout = QVBoxLayout()
+
+        # Dropdown for Subject
+        self.subject_box = QComboBox()
+        self.subject_box.addItems(["Math", "Computer Science", "General Knowledge"])
+        layout.addWidget(QLabel("Select Subject:"))
+        layout.addWidget(self.subject_box)
+
+        # Frequency selector (seconds)
+        self.freq_box = QSpinBox()
+        self.freq_box.setRange(10, 3600)
+        self.freq_box.setValue(30)
+        layout.addWidget(QLabel("Popup Frequency (seconds):"))
+        layout.addWidget(self.freq_box)
+
+        # Start Button
+        start_btn = QPushButton("Start Popups")
+        start_btn.clicked.connect(self.start_popups)
+        layout.addWidget(start_btn)
+
+        self.setLayout(layout)
+
+        # Timer for popups
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.show_popup)
+
+    def start_popups(self):
+        interval = self.freq_box.value() * 1000  # milliseconds
+        self.timer.start(interval)
+        self.show_popup()  # show first immediately
+
+    def show_popup(self):
+        self.popup = QuestionPopup(subject=self.subject_box.currentText())
+        self.popup.exec_()
+
+# ---------------- Popup Window ----------------
+class QuestionPopup(QDialog):
+    def __init__(self, subject="General"):
+        super().__init__()
+        self.setWindowTitle("Answer This Question!")
+        self.setWindowFlags(Qt.WindowStaysOnTopHint)  # Always on top
+        self.setGeometry(400, 300, 300, 200)
+
+        layout = QVBoxLayout()
+
+        # Simple random question
+        question, options = self.generate_question(subject)
+        self.label = QLabel(question)
+        layout.addWidget(self.label)
+
+        # Create answer buttons
+        for opt in options:
+            btn = QPushButton(opt)
+            btn.clicked.connect(lambda _, o=opt: self.check_answer(o, options[0]))
+            layout.addWidget(btn)
+
+        self.setLayout(layout)
+
+    def generate_question(self, subject):
+        if subject == "Math":
+            return ("What is 5 + 3?", ["8", "6", "9", "7"])
+        elif subject == "Computer Science":
+            return ("What does CPU stand for?", ["Central Processing Unit", "Computer Power Unit", "Core Process Utility"])
+        else:
+            return ("What is the capital of France?", ["Paris", "London", "Berlin", "Rome"])
+
+    def check_answer(self, selected, correct):
+        if selected == correct:
+            self.label.setText("✅ Correct!")
+        else:
+            self.label.setText("❌ Wrong!")
+        QTimer.singleShot(1000, self.accept)  # close after 1 sec
+
+# ---------------- Main App ----------------
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    dashboard = Dashboard()
+    dashboard.show()
+    sys.exit(app.exec_())
