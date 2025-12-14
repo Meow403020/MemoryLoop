@@ -163,13 +163,3 @@ class AddQuestion(QDialog):
         self.wrongInput.clear()
 
 
-#add report class
-#generate an ai question
-class QuestionBridge(QObject):
-    def __init__(self, parent=None):
-        super().__init__()
-        self.parent = parent
-
-    @pyqtSlot(str)
-    def checkAnswer(self, selected):
-        self.parent.check_answer(selected)
