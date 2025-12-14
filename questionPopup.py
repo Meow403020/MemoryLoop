@@ -19,7 +19,7 @@ from PyQt5.QtWebChannel import QWebChannel
 
 # your own project imports
 from database import DB_NAME, createdb
-from dashboard import Dashboard
+
 
 
 #class for actual question popup
