@@ -9,5 +9,3 @@ class QuestionBridge(QObject):
     @pyqtSlot(str)
     def checkAnswer(self, selected):
         self.popup.check_answer(selected)
-
-#class for actual question popup
