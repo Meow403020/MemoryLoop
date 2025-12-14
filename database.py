@@ -1,4 +1,4 @@
-
+import sqlite3
 
 DB_NAME = "questions.db"
 #get an api key
