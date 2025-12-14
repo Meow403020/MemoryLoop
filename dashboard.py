@@ -10,10 +10,10 @@ from PyQt5.QtGui import QFont
 
 # your own files
 from database import DB_NAME
-from ui.widgets import ToggleSwitch, TitleBarButton
-from ui.add_question import AddQuestion
-from ui.manage_questions import ManageQuestions
-from ui.question_popup import QuestionPopup
+from uiWidgets import ToggleSwitch, TitleBarButton
+from addQuestion import AddQuestion
+from manageQuestions import ManageQuestions
+from questionPopup import QuestionPopup
 
 
 #make the class inehirt from qwidget which is base class for buttons labels etc
