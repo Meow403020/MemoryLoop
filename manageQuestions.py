@@ -1,7 +1,7 @@
 import sqlite3
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from db.database import DB_NAME
+from database import DB_NAME
 
 class ManageQuestions(QDialog):
     def __init__(self):
