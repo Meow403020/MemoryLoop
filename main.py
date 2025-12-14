@@ -6,6 +6,7 @@ from manageQuestions import ManageQuestions
 from uiWidgets import ToggleSwitch, TitleBarButton
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
+import dashboard import Dashboard
 
 
 if __name__ == "__main__":
