@@ -1,3 +1,19 @@
+import math
+import sqlite3
+
+from PyQt5.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
+    QComboBox, QSlider, QInputDialog, QMessageBox
+)
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QFont
+
+# your own files
+from database import DB_NAME
+from ui.widgets import ToggleSwitch, TitleBarButton
+from ui.add_question import AddQuestion
+from ui.manage_questions import ManageQuestions
+from ui.question_popup import QuestionPopup
 
 
 #make the class inehirt from qwidget which is base class for buttons labels etc
